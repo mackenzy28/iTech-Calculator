@@ -1,0 +1,12 @@
+{
+  "name": "node-sass",
+  "version": "4.12.0",
+  "description": "node-sass",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss": "node-sass --watch scss -o css"
+  },
+  "author": "",
+  "license": "ISC"
+}
