@@ -1,96 +1,116 @@
 
-class Calculator {
-	constructor(el) {
-		this.el = el;
-		console.log('initialised');
-		this.displaySum = $(this.el).find('.display-sum');
-		this.displayAnswer = $(this.el).find('.display-answer');
-		this.number1 = '';
-		this.number2 = '';
-		this.operator = '';
-		this.total = '';
-
-		$('[data-action="clear"]').on("click", () => {
-				this.clearDisplay();
-		});
-
-		$('[data-action="enter-number"]').on("click", (event) => {
-				const numberEntered = event.target.textContent;
-				this.displayNumber(event.target.textContent);
-				if (this.operator === '') {
-						this.number1 += numberEntered;
-						console.log('number1:', this.number1);
+$(document).ready(function() {
+	class Calculator {
+		constructor(el) {
+			this.el = el;
+			console.log('initialised');
+			this.displayPanel = $(this.el).find('.display-sum');
+			this.displaySum = $(this.el).find('.display-sum span');
+			this.displayAnswer = $(this.el).find('.display-answer span');
+			this.number1 = '';
+			this.number2 = '';
+			this.operator = '';
+			this.total = '';
+	
+			$('[data-action="clear"]').on("click", () => {
+					this.clearDisplay();
+			});
+	
+			$('[data-action="enter-number"]').on("click", (event) => {
+					const numberEntered = event.target.textContent;
+					this.displayNumber(event.target.textContent);
+					if (this.operator === '') {
+							this.number1 += numberEntered;
+							console.log('number1:', this.number1);
+					}
+					else {
+							this.number2 += numberEntered;
+							console.log('number2:', this.number2);
+					}
+			});
+	
+			$('[data-action="enter-operator"]').on("click", (event) => {
+				const operatorEntered = event.target.textContent;
+				this.displayNumber(operatorEntered);
+				if (this.operator != '') {
+					this.calculateAnswer();
 				}
-				else {
-						this.number2 += numberEntered;
-						console.log('number2:', this.number2);
-				}
-		});
-
-		$('[data-action="enter-operator"]').on("click", (event) => {
-			const operatorEntered = event.target.textContent;
-			this.displayNumber(operatorEntered);
-			if (this.operator != '') {
+				this.operator = operatorEntered;
+				console.log('operator:', this.operator);
+			});
+	
+			$('[data-action="calculate"]').on("click", (event) => {
 				this.calculateAnswer();
+			});
+		}
+	
+		clearDisplay() {
+			$(this.displaySum).empty();
+			$(this.displayAnswer).empty();
+			this.number1 = '';
+			this.number2 = '';
+			this.operator = '';
+			this.total = '';
+			this.displaySum.removeAttr('style');
+			this.displayAnswer.removeAttr('style');
+			console.log('clear');
+		}
+	
+		displayNumber(number) {
+			$(this.displaySum).append(number);
+			this.ManageDisplayFont(this.displaySum);
+		}
+	
+		displayResult(result) {
+			console.log('total:', this.total);
+			$(this.displaySum).empty();
+			$(this.displayAnswer).text(result);
+			this.displayAnswer.removeAttr('style');
+			this.ManageDisplayFont(this.displayAnswer);
+		}
+	
+		updateVariables() {
+			this.number1 = this.total;
+			this.number2 = '';
+			this.total = '';
+		}
+	
+		calculateAnswer() {
+			if (this.number1 != '' && this.number2 != '') {
+				switch (this.operator) {
+					case '+':
+						this.total = +this.number1 + +this.number2;
+						this.displayResult(this.total);
+						break;
+					case '-':
+						this.total = +this.number1 - +this.number2;
+						this.displayResult(this.total);
+						break;
+					case '×':
+						this.total = +this.number1 * +this.number2;
+						this.displayResult(this.total);
+						break;
+					case '÷':
+						this.total = +this.number1 / +this.number2;
+						this.displayResult(this.total);
+						break;
+				}
+				this.updateVariables();
 			}
-			this.operator = operatorEntered;
-			console.log('operator:', this.operator);
-		});
+		}
 
-		$('[data-action="calculate"]').on("click", (event) => {
-			this.calculateAnswer();
-		});
-	}
+		ManageDisplayFont(display) {
+			let displayPanelWidth = this.displayPanel.innerWidth();
+			let sumWidth = display.innerWidth();
+			let sumFontSize = parseInt(display.css('fontSize'));
 
-	clearDisplay() {
-		$(this.displaySum).empty();
-		$(this.displayAnswer).empty();
-		this.number1 = '';
-		this.number2 = '';
-		this.operator = '';
-		this.total = '';
-		console.log('clear');
-	}
-
-	displayNumber(number) {
-		$(this.displaySum).append(number);
-	}
-
-	displayResult(result) {
-		console.log('total:', this.total);
-		$(this.displaySum).empty();
-		$(this.displayAnswer).text(result);
-	}
-
-	updateVariables() {
-		this.number1 = this.total;
-		this.number2 = '';
-		this.total = '';
-	}
-
-	calculateAnswer() {
-		if (this.number1 != '' && this.number2 != '') {
-			switch (this.operator) {
-				case '+':
-					this.total = +this.number1 + +this.number2;
-					this.displayResult(this.total);
-					break;
-				case '-':
-					this.total = +this.number1 - +this.number2;
-					this.displayResult(this.total);
-					break;
-				case '×':
-					this.total = +this.number1 * +this.number2;
-					this.displayResult(this.total);
-					break;
-				case '÷':
-					this.total = +this.number1 / +this.number2;
-					this.displayResult(this.total);
-					break;
+			while (sumWidth >= displayPanelWidth) {
+				sumFontSize--;
+				display.css('fontSize', `${sumFontSize}.px`);
+				sumWidth = display.innerWidth();
 			}
-			this.updateVariables();
 		}
 	}
-}
 
-const calculator = new Calculator($('.calculator').get(0));
+	const calculator = new Calculator($('.calculator').get(0));
+});
