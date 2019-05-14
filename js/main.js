@@ -31,7 +31,8 @@ $(document).ready(function() {
 	
 			$('[data-action="enter-operator"]').on("click", (event) => {
 				const operatorEntered = event.target.textContent;
-				this.displayNumber(operatorEntered);
+				const formattedOperator = ` ${operatorEntered} `;
+				this.displayNumber(formattedOperator);
 				if (this.operator != '') {
 					this.calculateAnswer();
 				}
@@ -45,7 +46,7 @@ $(document).ready(function() {
 		}
 	
 		clearDisplay() {
-			$(this.displaySum).empty();
+			$(this.displaySum).text('0');
 			$(this.displayAnswer).empty();
 			this.number1 = '';
 			this.number2 = '';
@@ -57,6 +58,9 @@ $(document).ready(function() {
 		}
 	
 		displayNumber(number) {
+			if (this.number1 === '') {
+				$(this.displaySum).empty();
+			}
 			$(this.displaySum).append(number);
 			this.ManageDisplayFont(this.displaySum);
 		}

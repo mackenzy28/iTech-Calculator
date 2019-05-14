@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>iTech Media Calculator</title>
     <link rel="stylesheet" href="css/styles.css">
-    <!-- <link rel="shortcut icon" href="favicon.ico"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -15,28 +15,28 @@
       <div class="calculator-wrapper">
         <div class="calculator">
           <div class="display-panel">
-            <div class="display-sum">365 &times; 4 =</div>
-            <div class="display-answer">1,460</div>
+            <div class="display-sum"><span>0</span></div>
+            <div class="display-answer"><span></span></div>
           </div>
           <div class="button-panel">
-            <button class="button button-reset" type="button">AC</button>
-            <button class="button button-reset button-double" type="button">Save</button>
-            <button class="button button-operator" type="button">&divide;</button>
-            <button class="button button-number" type="button">.</button>
-            <button class="button button-number button-double button-left" type="button">0</button>
-            <button class="button button-operator" type="button">&times;</button>
-            <button class="button button-number" type="button">1</button>
-            <button class="button button-number" type="button">2</button>
-            <button class="button button-number" type="button">3</button>
-            <button class="button button-operator" type="button">-</button>
-            <button class="button button-number" type="button">4</button>
-            <button class="button button-number" type="button">5</button>
-            <button class="button button-number" type="button">6</button>
-            <button class="button button-operator" type="button">+</button>
-            <button class="button button-number" type="button">7</button>
-            <button class="button button-number" type="button">8</button>
-            <button class="button button-number" type="button">9</button>
-            <button class="button button-operator" type="button">=</button>
+            <button class="button button-reset" type="button" data-action="clear">AC</button>
+            <button class="button button-reset button-double" type="button" data-action="save">Save</button>
+            <button class="button button-operator" type="button" data-action="enter-operator" data-value="/">&divide;</button>
+            <button class="button button-number" type="button" data-action="enter-number">.</button>
+            <button class="button button-number button-double button-left" type="button" data-action="enter-number">0</button>
+            <button class="button button-operator" type="button" data-action="enter-operator" data-value="*" >&times;</button>
+            <button class="button button-number" type="button" data-number="1" data-action="enter-number">1</button>
+            <button class="button button-number" type="button" data-number="2" data-action="enter-number">2</button>
+            <button class="button button-number" type="button" data-number="3" data-action="enter-number">3</button>
+            <button class="button button-operator" type="button" data-action="enter-operator" data-value="-">-</button>
+            <button class="button button-number" type="button" data-number="4" data-action="enter-number">4</button>
+            <button class="button button-number" type="button" data-number="5" data-action="enter-number">5</button>
+            <button class="button button-number" type="button" data-number="6" data-action="enter-number">6</button>
+            <button class="button button-operator" type="button" data-action="enter-operator" data-value="+">+</button>
+            <button class="button button-number" type="button" data-number="7" data-action="enter-number">7</button>
+            <button class="button button-number" type="button" data-number="8" data-action="enter-number">8</button>
+            <button class="button button-number" type="button" data-number="9" data-action="enter-number">9</button>
+            <button class="button button-operator" type="button" data-action="calculate">=</button>
           </div>
         </div>
       </div>
