@@ -53,7 +53,8 @@ button {
       font-size: 28px;
       font-weight: 300; }
     .calculator .display-panel .display-answer {
-      font-size: 65px; }
+      font-size: 65px;
+      margin-top: -10px; }
   .calculator .button-panel {
     display: flex;
     flex-direction: row;
